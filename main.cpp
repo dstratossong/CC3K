@@ -1,8 +1,10 @@
 #include <iostream>
+#include "classes/Map.h"
 
 using namespace std;
 
 int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
+    Map& map = Map::getInstance();
+    map.draw_map("map_data");
+    map.print_map(cout);
 }

@@ -5,8 +5,10 @@
 #ifndef CC3K_MAPCELL_H
 #define CC3K_MAPCELL_H
 
-
+#include <iostream>
 #include "ObjectUnit.h"
+
+class ObjectUnit;
 
 class MapCell {
 public:
@@ -15,6 +17,11 @@ public:
     char cell_type; // one of constants from Map
     MapCell** neighbors; // neighboring cells within 1 block radius
     ObjectUnit* object; // encasing object
+
+    MapCell(int pos_x, int pos_y, char cell_type)
+            : pos_x(pos_x), pos_y(pos_y), cell_type(cell_type), neighbors(NULL), object(NULL) {};
+    ~MapCell();
+
 private:
 
 };

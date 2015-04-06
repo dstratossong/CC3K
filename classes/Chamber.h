@@ -5,11 +5,14 @@
 #ifndef CC3K_CHAMBER_H
 #define CC3K_CHAMBER_H
 
+#include <iostream>
+#include <vector>
 
-#include "MapCell.h"
+class MapCell;
 
 class Chamber {
-    MapCell** map_cells;
+public:
+    std::vector<MapCell*> chamber_cells;
 };
 
 

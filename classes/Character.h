@@ -8,10 +8,14 @@
 
 #include "ObjectUnit.h"
 
-class Character : ObjectUnit {
+class Character : public ObjectUnit {
+public:
     int hit_point;
     int attack_point;
     int defence_point;
+
+private:
+
 };
 
 

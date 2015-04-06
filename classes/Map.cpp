@@ -3,31 +3,112 @@
 //
 
 #include "Map.h"
-#include <iostream>
+#include "MapCell.h"
+#include "Chamber.h"
 #include <fstream>
 
-void Map::draw_map(char* map_file_name) {
+void Map::draw_map(char const * map_file_name) {
     std::ifstream file(map_file_name);
 
-    if (!file.is_open())
+    if (!file.is_open()) {
+        std::cout << "ERROR" << std::endl;
         return;
+    }
 
-    // see map_data for formatting
-    for (int i = 1; i < this->FLOOR_HEIGHT; i++) {
+    // Read map_data
+    std::vector<MapCell*> first_row; // first row..
+//    row.push_back(NULL);
+    landscape.push_back(first_row);
+
+    for (int i = 1; i <= FLOOR_HEIGHT; i++) {
+        std::vector<MapCell*> row;
         std::string read_line;
         getline(file, read_line);
 
+        row.push_back(NULL); // first column..
+
+        for (int j = 1; j <= FLOOR_WIDTH; j++) {
+            switch (read_line[j-1]) {
+                case CELL_FLOOR:
+                case CELL_BLANK:
+                case CELL_DOORWAY:
+                case CELL_PASSAGE:
+                case CELL_WALL_HORIZONTAL:
+                case CELL_WALL_VERTICAL:
+                    MapCell* cell = new MapCell(i, j, read_line[j-1]);
+                    row.push_back(cell);
+                    break;
+            }
+        }
+        landscape.push_back(row);
     }
+
+    // Read map meta-data
+    // - chambers
+    for (int i = 0; i < NUMBER_OF_CHAMBERS; i++) {
+        Chamber chamber;
+        int number_of_cells;
+        file >> number_of_cells;
+        for (int j = 0; j < number_of_cells; j++) {
+            int cell_pos_x, cell_pos_y;
+            file >> cell_pos_x >> cell_pos_y;
+            MapCell* cell = get_map_cell(cell_pos_x, cell_pos_y);
+            if (cell) {
+                chamber.chamber_cells.push_back(cell);
+            }
+        }
+        chambers.push_back(chamber);
+    }
+
+    // close stream
     file.close();
 }
 
-MapCell* Map::get_map_cell(int x, int y) {
+void Map::clear_map() {
+
+}
+
+MapCell* Map::get_map_cell(int row, int column) {
     // check range
-    if (x <= 0 || x > FLOOR_WIDTH ||
-        y <= 0 || y > FLOOR_HEIGHT) {
+    if (row <= 0 || row > FLOOR_HEIGHT ||
+            column <= 0 || column > FLOOR_WIDTH) {
         return NULL;
     } else {
-        return landscape[x][y];
+        return landscape[row][column];
     }
 }
 
+void Map::update_neighbors() {
+    for (int i = 1; i <= FLOOR_HEIGHT; i++) {
+        for (int j = 1; j <= FLOOR_WIDTH; j++) {
+
+        }
+    }
+}
+
+
+
+void Map::print_map(std::ostream& out) {
+    for (int i = 1; i <= FLOOR_HEIGHT; i++) {
+        for (int j = 1; j <= FLOOR_WIDTH; j++) {
+            if (landscape[i][j]->object) {
+                // print the occupying object symbol
+            } else {
+                out << landscape[i][j]->cell_type;
+            }
+        }
+        out << std::endl;
+    }
+}
+
+Map::Map() {
+
+}
+
+Map::~Map() {
+    for (int i = 1; i <= FLOOR_HEIGHT; i++) {
+        for (int j = 1; j <= FLOOR_WIDTH; j++) {
+            delete landscape[i][j];
+        }
+    }
+}

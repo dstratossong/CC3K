@@ -3,3 +3,7 @@
 //
 
 #include "MapCell.h"
+
+MapCell::~MapCell() {
+    delete object;
+}

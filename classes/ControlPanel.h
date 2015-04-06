@@ -6,8 +6,11 @@
 #define CC3K_CONTROLPANEL_H
 
 
+class Character;
+
 class ControlPanel {
 public:
+    Character& player_character;
 
 private:
 

@@ -11,7 +11,9 @@ class Character;
 class ControlPanel {
 public:
     Character& player_character;
-
+    int current_floor;
+    int current_gold;
+    
 private:
 
 };

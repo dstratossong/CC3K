@@ -12,9 +12,11 @@ class ObjectUnit {
 public:
     int pos_x;
     int pos_y;
+    char display_symbol;
     MapCell* parent;
     Map* map;
 
+    ObjectUnit();
     virtual ~ObjectUnit() = 0;
     // TODO: virtual destructor
 

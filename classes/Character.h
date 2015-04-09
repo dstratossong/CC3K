@@ -5,7 +5,7 @@
 #ifndef CC3K_CHARACTER_H
 #define CC3K_CHARACTER_H
 
-
+#include <iostream>
 #include "ObjectUnit.h"
 
 class Character : public ObjectUnit {
@@ -14,8 +14,14 @@ public:
     int attack_point;
     int defence_point;
 
-private:
+    std::string race_name;
 
+    void attack(Character& other_character);
+    void take_hit();
+    void take_potion();
+    void gain_gold();
+
+private:
 };
 
 

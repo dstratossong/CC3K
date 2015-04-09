@@ -17,7 +17,6 @@ void Map::draw_map(char const * map_file_name) {
 
     // Read map_data
     std::vector<MapCell*> first_row; // first row..
-//    row.push_back(NULL);
     landscape.push_back(first_row);
 
     for (int i = 1; i <= FLOOR_HEIGHT; i++) {
@@ -78,21 +77,74 @@ MapCell* Map::get_map_cell(int row, int column) {
     }
 }
 
+// Only counts cells that units can move to (CELL_FLOOR)
 void Map::update_neighbors() {
+    const int N = 0;
+    const int NE = 1;
+    const int E = 2;
+    const int SE = 3;
+    const int S = 4;
+    const int SW = 5;
+    const int W = 6;
+    const int NW = 7;
+
     for (int i = 1; i <= FLOOR_HEIGHT; i++) {
         for (int j = 1; j <= FLOOR_WIDTH; j++) {
+            MapCell* this_cell = get_map_cell(i, j);
+            if (this_cell->cell_type != CELL_FLOOR)
+                continue;
 
+            for (int k = 0; k < 8; k++) {
+                MapCell* cell;
+                switch (k) {
+                    case N:
+                        cell = get_map_cell(i-1, j);
+                        break;
+                    case NW:
+                        cell = get_map_cell(i-1, j-1);
+                        break;
+                    case W:
+                        cell = get_map_cell(i, j-1);
+                        break;
+                    case SW:
+                        cell = get_map_cell(i+1, j-1);
+                        break;
+                    case S:
+                        cell = get_map_cell(i+1, j);
+                        break;
+                    case SE:
+                        cell = get_map_cell(i+1, j+1);
+                        break;
+                    case E:
+                        cell = get_map_cell(i, j+1);
+                        break;
+                    case NE:
+                        cell = get_map_cell(i-1, j+1);
+                        break;
+                }
+                if (cell && cell->cell_type == CELL_FLOOR)
+                    this_cell->neighbors.push_back(cell);
+            }
         }
     }
 }
 
+
+void Map::spawn_units() {
+    // Spawn player pos = (5, 5)
+
+
+    // Spawn stairs
+
+    // Spawn ...
+}
 
 
 void Map::print_map(std::ostream& out) {
     for (int i = 1; i <= FLOOR_HEIGHT; i++) {
         for (int j = 1; j <= FLOOR_WIDTH; j++) {
             if (landscape[i][j]->object) {
-                // print the occupying object symbol
+                out << landscape[i][j]->object->display_symbol;
             } else {
                 out << landscape[i][j]->cell_type;
             }

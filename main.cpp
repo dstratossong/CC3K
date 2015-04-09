@@ -6,5 +6,6 @@ using namespace std;
 int main() {
     Map& map = Map::getInstance();
     map.draw_map("map_data");
+    map.update_neighbors();
     map.print_map(cout);
 }

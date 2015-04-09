@@ -18,6 +18,7 @@ public:
     const static int FLOOR_WIDTH = 79;
     const static int FLOOR_HEIGHT = 25;
 
+    const static int FIRST_FLOOR = 1;
     const static int NUMBER_OF_FLOORS = 5;
     const static int NUMBER_OF_CHAMBERS = 5;
 
@@ -35,6 +36,7 @@ public:
     }                                               // Singleton
 
     void draw_map(char const * map_file_name);      // Reads in map data, found in the file name, creates MapCells
+    void update_neighbors();                        // Updates the list of neighbors of each MapCell
     void spawn_units();                             // Creates ObjectUnits and populate them in MapCells
     void clear_map();                               // Deletes all ObjectUnits
     void print_map(std::ostream& out);              // Prints the board, according to the game display standards
@@ -53,7 +55,6 @@ private:
     Map(Map const&);            // Preventing copies of Singleton
     void operator=(Map const&); // Preventing copies of Singleton
 
-    void update_neighbors();
     void move_randomly();
 };
 

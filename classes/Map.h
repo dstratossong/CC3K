@@ -40,6 +40,7 @@ public:
     void spawn_units();                             // Creates ObjectUnits and populate them in MapCells
     void clear_map();                               // Deletes all ObjectUnits
     void print_map(std::ostream& out);              // Prints the board, according to the game display standards
+    void move_randomly();                           //
 
     MapCell* get_map_cell(int x, int y);            // Accessor of the requested cell, NULL if out of bound
 
@@ -50,12 +51,25 @@ private:
     std::vector<Chamber> chambers;                  // Vector of Chambers on map (floor)
 
     // private methods
-    Map();                      // Constructor
+    Map();                   // Constructor
     ~Map();                     // Destructor
+
     Map(Map const&);            // Preventing copies of Singleton
     void operator=(Map const&); // Preventing copies of Singleton
 
-    void move_randomly();
+    // Spawning - see Registry Pattern
+    MapCell* get_spawning_ground(int pos_x, int pos_y);
+    void spawn_human(int pos_x, int pos_y);
+    void spawn_dwarf(int pos_x, int pos_y);
+    void spawn_elves(int pos_x, int pos_y);
+    void spawn_orc(int pos_x, int pos_y);
+    void spawn_vampire(int pos_x, int pos_y);
+    void spawn_werewolf(int pos_x, int pos_y);
+    void spawn_troll(int pos_x, int pos_y);
+    void spawn_goblin(int pos_x, int pos_y);
+    void spawn_merchant(int pos_x, int pos_y);
+    void spawn_dragon(int pos_x, int pos_y);
+    void spawn_phoenix(int pos_x, int pos_y);
 };
 
 

@@ -33,3 +33,5 @@ bool ObjectUnit::move(char direction) {
 void ObjectUnit::move_randomly() {
 
 }
+
+ObjectUnit::~ObjectUnit() {};

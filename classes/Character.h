@@ -16,12 +16,24 @@ public:
 
     std::string race_name;
 
+    virtual ~Character() = 0;
+
     void attack(Character& other_character);
     void take_hit();
     void take_potion();
     void gain_gold();
 
+protected:
+    Character(Map* map, MapCell* parent, int pos_x, int pos_y, char display_symbol, int hit_point, int attack_point, int defence_point, std::string race_name)
+            : ObjectUnit(map, parent, pos_x, pos_y, display_symbol),
+              hit_point(hit_point),
+              attack_point(attack_point),
+              defence_point(defence_point),
+              race_name(race_name)
+    {};
+
 private:
+
 };
 
 

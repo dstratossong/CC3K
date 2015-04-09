@@ -5,7 +5,19 @@
 #include "Map.h"
 #include "MapCell.h"
 #include "Chamber.h"
+#include "characters/Human.h"
+#include "characters/Vampire.h"
 #include <fstream>
+
+Map::Map() {};
+
+Map::~Map() {
+    for (int i = 1; i <= FLOOR_HEIGHT; i++) {
+        for (int j = 1; j <= FLOOR_WIDTH; j++) {
+            delete landscape[i][j];
+        }
+    }
+}
 
 void Map::draw_map(char const * map_file_name) {
     std::ifstream file(map_file_name);
@@ -129,16 +141,14 @@ void Map::update_neighbors() {
     }
 }
 
-
 void Map::spawn_units() {
-    // Spawn player pos = (5, 5)
-
+    spawn_human(5, 5);
+    spawn_vampire(5, 7);
 
     // Spawn stairs
 
     // Spawn ...
 }
-
 
 void Map::print_map(std::ostream& out) {
     for (int i = 1; i <= FLOOR_HEIGHT; i++) {
@@ -153,14 +163,23 @@ void Map::print_map(std::ostream& out) {
     }
 }
 
-Map::Map() {
 
+// Spawning Implementations
+MapCell* Map::get_spawning_ground(int pos_x, int pos_y) {
+    MapCell* cell = get_map_cell(pos_x, pos_y);
+    if (!cell || cell->cell_type != CELL_FLOOR || cell->object)
+        throw 1;
+    return cell;
 }
 
-Map::~Map() {
-    for (int i = 1; i <= FLOOR_HEIGHT; i++) {
-        for (int j = 1; j <= FLOOR_WIDTH; j++) {
-            delete landscape[i][j];
-        }
-    }
+void Map::spawn_human(int pos_x, int pos_y) {
+    MapCell* cell = get_spawning_ground(pos_x, pos_y);
+    cell->object = new Human(this, cell, pos_x, pos_y);
+    units.push_back(cell->object);
+}
+
+void Map::spawn_vampire(int pos_x, int pos_y) {
+    MapCell* cell = get_spawning_ground(pos_x, pos_y);
+    cell->object = new Vampire(this, cell, pos_x, pos_y);
+    units.push_back(cell->object);
 }

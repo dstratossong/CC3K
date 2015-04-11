@@ -91,14 +91,6 @@ MapCell* Map::get_map_cell(int row, int column) {
 
 // Only counts cells that units can move to (CELL_FLOOR)
 void Map::update_neighbors() {
-    const int N = 0;
-    const int NE = 1;
-    const int E = 2;
-    const int SE = 3;
-    const int S = 4;
-    const int SW = 5;
-    const int W = 6;
-    const int NW = 7;
 
     for (int i = 1; i <= FLOOR_HEIGHT; i++) {
         for (int j = 1; j <= FLOOR_WIDTH; j++) {
@@ -109,28 +101,28 @@ void Map::update_neighbors() {
             for (int k = 0; k < 8; k++) {
                 MapCell* cell;
                 switch (k) {
-                    case N:
+                    case DIRECTION_N:
                         cell = get_map_cell(i-1, j);
                         break;
-                    case NW:
+                    case DIRECTION_NW:
                         cell = get_map_cell(i-1, j-1);
                         break;
-                    case W:
+                    case DIRECTION_W:
                         cell = get_map_cell(i, j-1);
                         break;
-                    case SW:
+                    case DIRECTION_SW:
                         cell = get_map_cell(i+1, j-1);
                         break;
-                    case S:
+                    case DIRECTION_S:
                         cell = get_map_cell(i+1, j);
                         break;
-                    case SE:
+                    case DIRECTION_SE:
                         cell = get_map_cell(i+1, j+1);
                         break;
-                    case E:
+                    case DIRECTION_E:
                         cell = get_map_cell(i, j+1);
                         break;
-                    case NE:
+                    case DIRECTION_NE:
                         cell = get_map_cell(i-1, j+1);
                         break;
                 }
@@ -154,7 +146,7 @@ void Map::print_map(std::ostream& out) {
     for (int i = 1; i <= FLOOR_HEIGHT; i++) {
         for (int j = 1; j <= FLOOR_WIDTH; j++) {
             if (landscape[i][j]->object) {
-                out << landscape[i][j]->object->display_symbol;
+                out << landscape[i][j]->object->get_display_symbol();
             } else {
                 out << landscape[i][j]->cell_type;
             }

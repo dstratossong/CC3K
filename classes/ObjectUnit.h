@@ -28,20 +28,23 @@ public:
     Map* map;
     MapCell* parent;
 
+    virtual ~ObjectUnit() = 0;
+
+    char get_display_symbol() {
+        return display_symbol;
+    }
+
+    bool move(int direction);
+    void move_randomly();
+
+protected:
     int pos_x;
     int pos_y;
     char display_symbol;
 
-    virtual ~ObjectUnit() = 0;
-
-    bool move(int new_x, int new_y); // returns true for success
-    bool move(char direction);
-    void move_randomly();
-
-protected:
     ObjectUnit(Map* map, MapCell* parent, int pos_x, int pos_y, char display_symbol)
-            : pos_x(pos_x), pos_y(pos_y), display_symbol(display_symbol)
-    {
+            : pos_x(pos_x), pos_y(pos_y), display_symbol(display_symbol) {
+
         if (!map || !parent)
             throw;
 
@@ -50,7 +53,7 @@ protected:
     }
 
 private:
-
+    bool move(int new_x, int new_y); // returns true for success
 
 };
 

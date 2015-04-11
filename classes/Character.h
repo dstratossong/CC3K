@@ -8,32 +8,42 @@
 #include <iostream>
 #include "ObjectUnit.h"
 
+class Potion;
+
 class Character : public ObjectUnit {
 public:
-    int hit_point;
-    int attack_point;
-    int defence_point;
-
-    std::string race_name;
-
     virtual ~Character() = 0;
 
-    void attack(Character& other_character);
-    void take_hit();
-    void take_potion();
-    void gain_gold();
+    int get_hit_point() {
+        return hit_point;
+    }
+
+    bool attack(int direction);
+
+    virtual void take_potion(Potion& potion);
+    virtual void gain_gold();
 
 protected:
-    Character(Map* map, MapCell* parent, int pos_x, int pos_y, char display_symbol, int hit_point, int attack_point, int defence_point, std::string race_name)
+    Character(Map* map, MapCell* parent, int pos_x, int pos_y, char display_symbol, int hit_point, int attack_point, int defence_point, int miss_chance, std::string race_name)
             : ObjectUnit(map, parent, pos_x, pos_y, display_symbol),
               hit_point(hit_point),
               attack_point(attack_point),
               defence_point(defence_point),
-              race_name(race_name)
-    {};
+              miss_chance(miss_chance),
+              race_name(race_name) {};
 
 private:
+    int hit_point;
+    int attack_point;
+    int defence_point;
+    int miss_chance;
 
+    std::string race_name;
+
+    bool attack(int target_x, int target_y);
+    void attack(Character& defender);
+    void defend(Character& attacker);
+    void despawn();
 };
 
 

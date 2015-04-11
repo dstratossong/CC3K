@@ -29,6 +29,15 @@ public:
     const static char CELL_DOORWAY = '+';
     const static char CELL_PASSAGE = '#';
 
+    const static int DIRECTION_N = 0;
+    const static int DIRECTION_NE = 1;
+    const static int DIRECTION_E = 2;
+    const static int DIRECTION_SE = 3;
+    const static int DIRECTION_S = 4;
+    const static int DIRECTION_SW = 5;
+    const static int DIRECTION_W = 6;
+    const static int DIRECTION_NW = 7;
+
     // public methods
     static Map& getInstance() {
         static Map instance;

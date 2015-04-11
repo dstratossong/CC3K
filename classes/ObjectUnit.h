@@ -54,7 +54,6 @@ protected:
 
 private:
     bool move(int new_x, int new_y); // returns true for success
-
 };
 
 

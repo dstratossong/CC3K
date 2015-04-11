@@ -16,8 +16,7 @@ public:
     const static int BASE_MISS_CHANCE = 0;
 
     Human(Map* map, MapCell* parent, int pos_x, int pos_y)
-            : Character(map, parent, pos_x, pos_y, SYMBOL_HUMAN, BASE_HIT_POINT, BASE_ATTACK_POINT, BASE_DEFENCE_POINT, BASE_MISS_CHANCE, "Human")
-    {};
+            : Character(map, parent, pos_x, pos_y, SYMBOL_HUMAN, BASE_HIT_POINT, BASE_ATTACK_POINT, BASE_DEFENCE_POINT, BASE_MISS_CHANCE, "Human") {};
     ~Human() {};
 };
 

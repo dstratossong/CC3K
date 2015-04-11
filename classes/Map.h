@@ -52,6 +52,7 @@ public:
     void move_randomly();                           //
 
     MapCell* get_map_cell(int x, int y);            // Accessor of the requested cell, NULL if out of bound
+    void remove_unit(ObjectUnit* unit);
 
 private:
     // private fields

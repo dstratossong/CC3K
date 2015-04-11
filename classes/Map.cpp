@@ -79,6 +79,8 @@ void Map::clear_map() {
 
 }
 
+
+
 MapCell* Map::get_map_cell(int row, int column) {
     // check range
     if (row <= 0 || row > FLOOR_HEIGHT ||
@@ -86,6 +88,18 @@ MapCell* Map::get_map_cell(int row, int column) {
         return NULL;
     } else {
         return landscape[row][column];
+    }
+}
+
+void Map::remove_unit(ObjectUnit *unit) {
+    if (!unit)
+        return;
+
+    for (int i = 0; i < units.size(); i++) {
+        if (units[i] == unit) {
+            units.erase(units.begin() + i);
+            return;
+        }
     }
 }
 

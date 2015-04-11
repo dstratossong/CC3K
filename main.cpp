@@ -20,6 +20,8 @@ int main() {
     RandomUtility::seed();
     Character& my_actual_char = dynamic_cast<Character&>(*my_char);
     my_actual_char.attack(Map::DIRECTION_E);
-
-
+    my_actual_char.attack(Map::DIRECTION_E);
+    my_actual_char.attack(Map::DIRECTION_E);
+    my_actual_char.attack(Map::DIRECTION_E);
+    map.print_map(cout);
 }

@@ -72,7 +72,7 @@ void Character::defend(Character& attacker) {
 
     // death
     if (hit_point <= damage)
-        return despawn();
+        return parent->despawn();
     else
         hit_point -= damage;
 
@@ -87,6 +87,8 @@ void Character::gain_gold() {
 
 }
 
-void Character::despawn() {
-
-}
+//void Character::despawn() {
+//    this->map->remove_unit(this);
+//    this->parent->object = NULL;
+//
+//}

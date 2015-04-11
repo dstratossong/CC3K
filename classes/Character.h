@@ -43,7 +43,7 @@ private:
     bool attack(int target_x, int target_y);
     void attack(Character& defender);
     void defend(Character& attacker);
-    void despawn();
+//    void despawn();
 };
 
 

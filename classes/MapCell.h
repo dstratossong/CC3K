@@ -23,8 +23,9 @@ public:
             : pos_x(pos_x), pos_y(pos_y), cell_type(cell_type), object(NULL) {};
     ~MapCell();
 
-private:
+    void despawn();
 
+private:
 };
 
 
